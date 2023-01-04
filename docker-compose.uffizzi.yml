@@ -25,7 +25,7 @@ services:
       - ./config/registry/:/etc/registry/:ro
       - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
   postgresql:
-    image: docker.io/bitnami/postgresql:13
+    image: postgres:latest
     container_name: harbor-db
     environment:
       - POSTGRESQL_PASSWORD=postgres

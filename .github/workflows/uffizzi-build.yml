@@ -334,7 +334,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Render Compose File
         run: |
-          REGISTRY_IMAGE=${{ needs.build-harbor-server.outputs.tags }}
+          REGISTRY_IMAGE=${{ needs.build-harbor-registry.outputs.tags }}
           CORE_IMAGE=${{needs.build-harbor-core.outputs.tags}}
           REGISTRY_CTL_IMAGE=${{needs.build-registry-ctl.outputs.tags}}
           PORTAL_IMAGE=${{needs.build-harbor-portal.outputs.tags}}
