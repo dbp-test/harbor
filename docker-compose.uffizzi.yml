@@ -31,9 +31,9 @@ services:
     image: postgres:latest
     container_name: harbor-db
     environment:
-      - POSTGRESQL_PASSWORD=postgres
-      - POSTGRESQL_DATABASE=postgres
-      - POSTGRESQL_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+      - POSTGRES_USER=postgres
     # volumes:
     #   - postgresql_data:/bitnami/postgresql
 
