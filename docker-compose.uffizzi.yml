@@ -7,6 +7,7 @@ x-uffizzi:
     port: 8081
 
 services:
+
   registry:
     image: "${REGISTRY_IMAGE}"
     environment:
@@ -14,6 +15,7 @@ services:
     volumes:
       - registry_data:/storage
       - ./config/registry/:/etc/registry/:ro
+
   registryctl:
     image: "${REGISTRY_CTL_IMAGE}"
     environment:
@@ -24,6 +26,7 @@ services:
       - registry_data:/storage
       - ./config/registry/:/etc/registry/:ro
       - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
+
   postgresql:
     image: postgres:latest
     container_name: harbor-db
@@ -31,8 +34,9 @@ services:
       - POSTGRESQL_PASSWORD=postgres
       - POSTGRESQL_DATABASE=postgres
       - POSTGRESQL_USER=postgres
-    volumes:
-      - postgresql_data:/bitnami/postgresql
+    # volumes:
+    #   - postgresql_data:/bitnami/postgresql
+
   core:
     image: "${CORE_IMAGE}"
     container_name: harbor-core
@@ -65,7 +69,7 @@ services:
       - WITH_CHARTMUSEUM=True
       - CHART_REPOSITORY_URL=http://chartmuseum:8081
       - CORE_URL=http://core:8081
-      # - JOBSERVICE_URL=http://jobservice:8081
+      - JOBSERVICE_URL=http://jobservice:8081
       - REGISTRY_STORAGE_PROVIDER_NAME=filesystem
       - REGISTRY_CREDENTIAL_USERNAME=harbor_registry_user
       - REGISTRY_CREDENTIAL_PASSWORD=harbor_registry_password
@@ -75,11 +79,13 @@ services:
       - core_data:/data
       - ./config/core/app.conf:/etc/core/app.conf:ro
       # - ./config/core/private_key.pem:/etc/core/private_key.pem:ro
+
   portal:
     image: "${PORTAL_IMAGE}"
     container_name: harbor-portal
     # depends_on:
     #   - core
+
   jobservice:
     image: "${JOBSERVICE_IMAGE}"
     container_name: harbor-jobservice
@@ -96,13 +102,15 @@ services:
     volumes:
       - jobservice_data:/var/log/jobs
       - ./config/jobservice/config.yml:/etc/jobservice/config.yml:ro
+
   redis:
     image: redis
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
+
   nginx:
-    image: nginx:alpine
+    image: nginx
     container_name: nginx
     volumes:
       - ./nginx-uffizzi:/etc/nginx
@@ -113,9 +121,10 @@ services:
       - registry
       - core
       - portal
+
   chartmuseum:
     container_name: chartmuseum
-    image: docker.io/bitnami/chartmuseum:0
+    image: bitnami/chartmuseum
     environment:
       - CACHE=redis
       - CACHE_REDIS_ADDR=redis:6379
@@ -126,8 +135,9 @@ services:
       - STORAGE_LOCAL_ROOTDIR=/uffizzi/data
       - ALLOW_OVERWRITE=true
       - INDEX_LIMIT=0
-    volumes:
-      - chartmuseum_data:/bitnami/data
+    # volumes:
+    #   - chartmuseum_data:/bitnami/data
+
 volumes:
   registry_data:
     driver: local
