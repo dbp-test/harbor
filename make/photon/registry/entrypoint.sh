@@ -8,6 +8,6 @@ set -e
 #     chown 10000:10000 -R /var/lib/registry
 # fi
 
-/home/harbor/install_cert.sh
+# /home/harbor/install_cert.sh
 
 # exec /usr/bin/registry_DO_NOT_USE_GC serve /etc/registry/config.yml

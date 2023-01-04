@@ -8,6 +8,6 @@ set -e
 #     chown 10000:10000 -R /var/lib/registry
 # fi
 
-/home/harbor/install_cert.sh
+# /home/harbor/install_cert.sh
 
 # exec /home/harbor/harbor_registryctl -c /etc/registryctl/config.yml
