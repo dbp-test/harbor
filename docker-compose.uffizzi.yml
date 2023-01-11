@@ -165,6 +165,8 @@ x-uffizzi:
     port: 5000
 
 services:
+  portal:
+    image: goharbor/harbor-portal:dev
   registry:
     image: goharbor/registry-photon:dev
     restart: always
