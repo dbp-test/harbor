@@ -11,4 +11,4 @@ set -e
 /home/harbor/install_cert.sh
 
 # exec /home/harbor/harbor_registryctl -c /etc/registryctl/config.yml
-# exec -c /home/harbor/config.yml
+exec go run main.go -c /home/harbor/config.yml

@@ -186,7 +186,7 @@ services:
     # command:
     #   ["serve", "/etc/registry/config.yml"]
   registryctl:
-    image: goharbor/harbor-registryctl:dev
+    image: "${REGISTRY_CTL_IMAGE}"
     environment:
       - CORE_SECRET=CHANGEME
       - JOBSERVICE_SECRET=CHANGEME
