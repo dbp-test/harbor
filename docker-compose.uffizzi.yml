@@ -172,9 +172,9 @@ services:
           resources:
             limits:
               memory: 2000M
-    # volumes:
-    #   - /data/registry:/storage
-    #   - ./common/config/registry/:/etc/registry/
+    volumes:
+      - /data/registry:/storage
+      - ./config/registry/:/etc/registry/
     #   - /etc/core/ca/ca.crt:/etc/registry/root.crt
     ports:
       - 5000:5000
