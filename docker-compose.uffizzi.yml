@@ -166,7 +166,7 @@ x-uffizzi:
 
 services:
   registry:
-    image: goharbor/registry-photon:latest
+    image: goharbor/registry-photon
     restart: always
     deploy:
           resources:
@@ -181,7 +181,7 @@ services:
     command:
       ["serve", "/etc/registry/config.yml"]
   postgres:
-    image: goharbor/harbor-db:latest
+    image: postgres:latest
     restart: always
     # volumes:
     #   - /data/database:/var/lib/postgresql/data:z
@@ -190,7 +190,7 @@ services:
     ports:
       - 5432:5432
   redis:
-    image: goharbor/redis-photon:latest
+    image: redis
     restart: always
     # volumes:
     #   - /data/redis:/var/lib/redis
