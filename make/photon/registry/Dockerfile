@@ -4,6 +4,7 @@ FROM ${harbor_base_namespace}/harbor-registry-base:${harbor_base_image_version}
 
 COPY ./make/photon/common/install_cert.sh /home/harbor
 COPY ./make/photon/registry/entrypoint.sh /home/harbor
+COPY ./config/registry/config.yml /home/harbor
 # COPY ./make/photon/registry/binary/registry /usr/bin/registry_DO_NOT_USE_GC
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
