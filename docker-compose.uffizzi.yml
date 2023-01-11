@@ -167,9 +167,8 @@ x-uffizzi:
 services:
   portal:
     image: goharbor/harbor-portal:dev
-    entrypoint: /bin/sh
+    # entrypoint: /bin/sh
     command:
-      - "c"
       - "sudo nginx -g daemon off"
 
   registry:
