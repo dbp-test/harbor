@@ -1,155 +1,194 @@
-version: '3.3'
+# version: '3.3'
+
+# # uffizzi integration
+# x-uffizzi:
+#   ingress:
+#     service: portal
+#     port: 8080
+
+# services:
+
+#   # registry:
+#   #   image: "${REGISTRY_IMAGE}"
+#   #   environment:
+#   #     - REGISTRY_HTTP_SECRET=CHANGEME
+#   #   volumes:
+#   #     - registry_data:/storage
+#   #     - ./config/registry/:/etc/registry/:ro
+
+#   # registryctl:
+#   #   image: "${REGISTRY_CTL_IMAGE}"
+#   #   environment:
+#   #     - CORE_SECRET=CHANGEME
+#   #     - JOBSERVICE_SECRET=CHANGEME
+#   #     - REGISTRY_HTTP_SECRET=CHANGEME
+#   #   volumes:
+#   #     - registry_data:/storage
+#   #     - ./config/registry/:/etc/registry/:ro
+#   #     - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
+
+#   # postgresql:
+#   #   image: postgres:latest
+#   #   container_name: harbor-db
+#   #   environment:
+#   #     - POSTGRES_PASSWORD=postgres
+#   #     - POSTGRES_DATABASE=postgres
+#   #     - POSTGRES_USER=postgres
+#   #   # volumes:
+#   #   #   - postgresql_data:/bitnami/postgresql
+
+#   # core:
+#   #   image: "${CORE_IMAGE}"
+#   #   container_name: harbor-core
+#   #   # depends_on:
+#   #   #   - registry
+#   #   #   - chartmuseum
+#   #   environment:
+#   #     # - CORE_KEY=change-this-key
+#   #     # - _REDIS_URL_CORE=redis://redis:6379/0
+#   #     # - SYNC_REGISTRY=false
+#   #     # - CHART_CACHE_DRIVER=redis
+#   #     # - _REDIS_URL_REG=redis://redis:6379/1
+#   #     - PORT=8081
+#   #     - LOG_LEVEL=info
+#   #     # - EXT_ENDPOINT=http://reg.mydomain.com
+#   #     - DATABASE_TYPE=postgresql
+#   #     - REGISTRY_CONTROLLER_URL=http://registryctl:8081
+#   #     - POSTGRESQL_HOST=postgresql
+#   #     - POSTGRESQL_PORT=5432
+#   #     - POSTGRESQL_DATABASE=postgres
+#   #     - POSTGRESQL_USERNAME=postgres
+#   #     - POSTGRESQL_PASSWORD=postgres
+#   #     - REGISTRY_URL=http://registry:5000
+#   #     - TOKEN_SERVICE_URL=http://core:8081/service/token
+#   #     - HARBOR_ADMIN_PASSWORD=bitnami
+#   #     - CORE_SECRET=CHANGEME
+#   #     - JOBSERVICE_SECRET=CHANGEME
+#   #     - ADMIRAL_URL=
+#   #     - WITH_NOTARY=False
+#   #     - WITH_CHARTMUSEUM=True
+#   #     - CHART_REPOSITORY_URL=http://chartmuseum:8081
+#   #     - CORE_URL=http://core:8081
+#   #     - JOBSERVICE_URL=http://jobservice:8081
+#   #     - REGISTRY_STORAGE_PROVIDER_NAME=filesystem
+#   #     - REGISTRY_CREDENTIAL_USERNAME=harbor_registry_user
+#   #     - REGISTRY_CREDENTIAL_PASSWORD=harbor_registry_password
+#   #     - READ_ONLY=false
+#   #     # - RELOAD_KEY=
+#   #   volumes:
+#   #     - core_data:/data
+#   #     - ./config/core/app.conf:/etc/core/app.conf:ro
+#   #     # - ./config/core/private_key.pem:/etc/core/private_key.pem:ro
+
+#   portal:
+#     image: docker.io/bitnami/harbor-portal:2
+#     container_name: harbor-portal
+#     deploy:
+#           resources:
+#             limits:
+#               memory: 1000M
+#     # depends_on:
+#     #   - core
+
+#   # jobservice:
+#   #   image: "${JOBSERVICE_IMAGE}"
+#   #   container_name: harbor-jobservice
+#   #   depends_on:
+#   #     - redis
+#   #     - core
+#   #   environment:
+#   #     - CORE_SECRET=CHANGEME
+#   #     - JOBSERVICE_SECRET=CHANGEME
+#   #     - CORE_URL=http://core:8081
+#   #     - REGISTRY_CONTROLLER_URL=http://registryctl:8081
+#   #     - REGISTRY_CREDENTIAL_USERNAME=harbor_registry_user
+#   #     - REGISTRY_CREDENTIAL_PASSWORD=harbor_registry_password
+#   #   volumes:
+#   #     - jobservice_data:/var/log/jobs
+#   #     - ./config/jobservice/config.yml:/etc/jobservice/config.yml:ro
+
+#   # redis:
+#   #   image: redis
+#   #   environment:
+#   #     # ALLOW_EMPTY_PASSWORD is recommended only for development.
+#   #     - ALLOW_EMPTY_PASSWORD=yes
+
+#   # nginx:
+#   #   image: nginx
+#   #   container_name: nginx
+#   #   volumes:
+#   #     - ./nginx-uffizzi:/etc/nginx
+#   #   ports:
+#   #     - '8081:8081'
+#   #   depends_on:
+#   #     - postgresql
+#   #     - registry
+#   #     - core
+#   #     - portal
+
+#   chartmuseum:
+#     container_name: chartmuseum
+#     image: bitnami/chartmuseum
+#     environment:
+#       - CACHE=redis
+#       - CACHE_REDIS_ADDR=redis:6379
+#       - CACHE_REDIS_DB=1
+#       - DEPTH=1
+#       - PORT=8083
+#       - STORAGE=local
+#       - STORAGE_LOCAL_ROOTDIR=/uffizzi/data
+#       - ALLOW_OVERWRITE=true
+#       - INDEX_LIMIT=0
+#     # volumes:
+#     #   - chartmuseum_data:/bitnami/data
+
+# volumes:
+#   registry_data:
+#     driver: local
+#   core_data:
+#     driver: local
+#   jobservice_data:
+#     driver: local
+#   postgresql_data:
+#     driver: local
+#   chartmuseum_data:
+#     driver: local
+
+
+
+version: '2'
 
 # uffizzi integration
 x-uffizzi:
   ingress:
-    service: portal
-    port: 8080
+    service: registry
+    port: 5000
 
 services:
-
-  # registry:
-  #   image: "${REGISTRY_IMAGE}"
-  #   environment:
-  #     - REGISTRY_HTTP_SECRET=CHANGEME
-  #   volumes:
-  #     - registry_data:/storage
-  #     - ./config/registry/:/etc/registry/:ro
-
-  # registryctl:
-  #   image: "${REGISTRY_CTL_IMAGE}"
-  #   environment:
-  #     - CORE_SECRET=CHANGEME
-  #     - JOBSERVICE_SECRET=CHANGEME
-  #     - REGISTRY_HTTP_SECRET=CHANGEME
-  #   volumes:
-  #     - registry_data:/storage
-  #     - ./config/registry/:/etc/registry/:ro
-  #     - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
-
-  # postgresql:
-  #   image: postgres:latest
-  #   container_name: harbor-db
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_DATABASE=postgres
-  #     - POSTGRES_USER=postgres
-  #   # volumes:
-  #   #   - postgresql_data:/bitnami/postgresql
-
-  # core:
-  #   image: "${CORE_IMAGE}"
-  #   container_name: harbor-core
-  #   # depends_on:
-  #   #   - registry
-  #   #   - chartmuseum
-  #   environment:
-  #     # - CORE_KEY=change-this-key
-  #     # - _REDIS_URL_CORE=redis://redis:6379/0
-  #     # - SYNC_REGISTRY=false
-  #     # - CHART_CACHE_DRIVER=redis
-  #     # - _REDIS_URL_REG=redis://redis:6379/1
-  #     - PORT=8081
-  #     - LOG_LEVEL=info
-  #     # - EXT_ENDPOINT=http://reg.mydomain.com
-  #     - DATABASE_TYPE=postgresql
-  #     - REGISTRY_CONTROLLER_URL=http://registryctl:8081
-  #     - POSTGRESQL_HOST=postgresql
-  #     - POSTGRESQL_PORT=5432
-  #     - POSTGRESQL_DATABASE=postgres
-  #     - POSTGRESQL_USERNAME=postgres
-  #     - POSTGRESQL_PASSWORD=postgres
-  #     - REGISTRY_URL=http://registry:5000
-  #     - TOKEN_SERVICE_URL=http://core:8081/service/token
-  #     - HARBOR_ADMIN_PASSWORD=bitnami
-  #     - CORE_SECRET=CHANGEME
-  #     - JOBSERVICE_SECRET=CHANGEME
-  #     - ADMIRAL_URL=
-  #     - WITH_NOTARY=False
-  #     - WITH_CHARTMUSEUM=True
-  #     - CHART_REPOSITORY_URL=http://chartmuseum:8081
-  #     - CORE_URL=http://core:8081
-  #     - JOBSERVICE_URL=http://jobservice:8081
-  #     - REGISTRY_STORAGE_PROVIDER_NAME=filesystem
-  #     - REGISTRY_CREDENTIAL_USERNAME=harbor_registry_user
-  #     - REGISTRY_CREDENTIAL_PASSWORD=harbor_registry_password
-  #     - READ_ONLY=false
-  #     # - RELOAD_KEY=
-  #   volumes:
-  #     - core_data:/data
-  #     - ./config/core/app.conf:/etc/core/app.conf:ro
-  #     # - ./config/core/private_key.pem:/etc/core/private_key.pem:ro
-
-  portal:
-    image: docker.io/bitnami/harbor-portal:2
-    container_name: harbor-portal
-    deploy:
-          resources:
-            limits:
-              memory: 1000M
-    # depends_on:
-    #   - core
-
-  # jobservice:
-  #   image: "${JOBSERVICE_IMAGE}"
-  #   container_name: harbor-jobservice
-  #   depends_on:
-  #     - redis
-  #     - core
-  #   environment:
-  #     - CORE_SECRET=CHANGEME
-  #     - JOBSERVICE_SECRET=CHANGEME
-  #     - CORE_URL=http://core:8081
-  #     - REGISTRY_CONTROLLER_URL=http://registryctl:8081
-  #     - REGISTRY_CREDENTIAL_USERNAME=harbor_registry_user
-  #     - REGISTRY_CREDENTIAL_PASSWORD=harbor_registry_password
-  #   volumes:
-  #     - jobservice_data:/var/log/jobs
-  #     - ./config/jobservice/config.yml:/etc/jobservice/config.yml:ro
-
-  # redis:
-  #   image: redis
-  #   environment:
-  #     # ALLOW_EMPTY_PASSWORD is recommended only for development.
-  #     - ALLOW_EMPTY_PASSWORD=yes
-
-  # nginx:
-  #   image: nginx
-  #   container_name: nginx
-  #   volumes:
-  #     - ./nginx-uffizzi:/etc/nginx
-  #   ports:
-  #     - '8081:8081'
-  #   depends_on:
-  #     - postgresql
-  #     - registry
-  #     - core
-  #     - portal
-
-  chartmuseum:
-    container_name: chartmuseum
-    image: bitnami/chartmuseum
-    environment:
-      - CACHE=redis
-      - CACHE_REDIS_ADDR=redis:6379
-      - CACHE_REDIS_DB=1
-      - DEPTH=1
-      - PORT=8083
-      - STORAGE=local
-      - STORAGE_LOCAL_ROOTDIR=/uffizzi/data
-      - ALLOW_OVERWRITE=true
-      - INDEX_LIMIT=0
+  registry:
+    image: goharbor/registry-photon:latest
+    restart: always
     # volumes:
-    #   - chartmuseum_data:/bitnami/data
-
-volumes:
-  registry_data:
-    driver: local
-  core_data:
-    driver: local
-  jobservice_data:
-    driver: local
-  postgresql_data:
-    driver: local
-  chartmuseum_data:
-    driver: local
+    #   - /data/registry:/storage
+    #   - ./common/config/registry/:/etc/registry/
+    #   - /etc/core/ca/ca.crt:/etc/registry/root.crt
+    ports:
+      - 5000:5000
+    command:
+      ["serve", "/etc/registry/config.yml"]
+  postgres:
+    image: goharbor/harbor-db:latest
+    restart: always
+    # volumes:
+    #   - /data/database:/var/lib/postgresql/data:z
+    # env_file:
+    #   - ./common/config/db/env
+    ports:
+      - 5432:5432
+  redis:
+    image: goharbor/redis-photon:latest
+    restart: always
+    # volumes:
+    #   - /data/redis:/var/lib/redis
+    ports:
+      - 6379:6379
