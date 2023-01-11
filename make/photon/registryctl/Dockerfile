@@ -9,8 +9,8 @@ COPY ./config/registry/config.yml /home/harbor
 COPY ../../src/registryctl/main.go /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
-# RUN apt install golang -y \
-# && export PATH=$PATH:/usr/local/go/bin
+RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.5.linux-amd64.tar.gz \
+&& export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
     # && chown harbor:harbor /home/harbor/harbor_registryctl && chmod u+x /home/harbor/harbor_registryctl \
