@@ -8,8 +8,8 @@ COPY ./make/photon/registryctl/start.sh /home/harbor
 COPY ./config/registry/config.yml /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
-RUN apt install golang -y \
-&& export PATH=$PATH:/usr/local/go/bin
+# RUN apt install golang -y \
+# && export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
     # && chown harbor:harbor /home/harbor/harbor_registryctl && chmod u+x /home/harbor/harbor_registryctl \
