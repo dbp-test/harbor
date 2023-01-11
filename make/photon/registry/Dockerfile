@@ -7,8 +7,8 @@ COPY ./make/photon/registry/entrypoint.sh /home/harbor
 COPY ./config/registry/config.yml /home/harbor
 # COPY ./make/photon/registry/binary/registry /usr/bin/registry_DO_NOT_USE_GC
 
-RUN chown -R harbor:harbor /etc/pki/tls/certs \
-    && chown harbor:harbor /home/harbor/entrypoint.sh && chmod u+x /home/harbor/entrypoint.sh \
+RUN chown -R harbor:harbor /etc/pki/tls/certs
+RUN chown harbor:harbor /home/harbor/entrypoint.sh && chmod u+x /home/harbor/entrypoint.sh \
     && chown harbor:harbor /home/harbor/install_cert.sh && chmod u+x /home/harbor/install_cert.sh
     # && chown harbor:harbor /usr/bin/registry_DO_NOT_USE_GC && chmod u+x /usr/bin/registry_DO_NOT_USE_GC
 
