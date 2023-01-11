@@ -169,7 +169,9 @@ services:
     image: "${PORTAL_IMAGE}"
 
   registry:
-    image: "${REGISTRY_IMAGE}"
+    image: bitnami/harbor-registry:latest
+    environment:
+      - REGISTRY_HTTP_SECRET=CHANGEME
     restart: always
     deploy:
           resources:
@@ -184,7 +186,7 @@ services:
     # command:
     #   ["serve", "/etc/registry/config.yml"]
   registryctl:
-    image: "${REGISTRY_CTL_IMAGE}"
+    image: goharbor/harbor-registryctl:dev
     environment:
       - CORE_SECRET=CHANGEME
       - JOBSERVICE_SECRET=CHANGEME
