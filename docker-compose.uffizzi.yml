@@ -161,12 +161,14 @@ version: '2'
 # uffizzi integration
 x-uffizzi:
   ingress:
-    service: registry
-    port: 5000
+    service: portal
+    port: 5001
 
 services:
   portal:
     image: goharbor/harbor-portal:dev
+    environment:
+    - PORT=5001
 
   registry:
     image: goharbor/registry-photon:dev
