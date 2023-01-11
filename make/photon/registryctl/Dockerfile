@@ -8,9 +8,7 @@ COPY ./make/photon/registryctl/start.sh /home/harbor
 COPY ./config/registry/config.yml /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
-RUN curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz \
-&& sha256sum go1.16.7.linux-amd64.tar.gz \
-&& tar -C /usr/local -xvf go1.16.7.linux-amd64.tar.gz \
+RUN apt install golang -y \
 && export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
