@@ -10,7 +10,7 @@ COPY ./config/registry/config.yml /home/harbor
 RUN chown -R harbor:harbor /etc/pki/tls/certs
 RUN chown harbor:harbor /home/harbor/entrypoint.sh && chmod u+x /home/harbor/entrypoint.sh \
     && chown harbor:harbor /home/harbor/install_cert.sh && chmod u+x /home/harbor/install_cert.sh \
-    && chown habor:habor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml
+    && chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml
     # && chown harbor:harbor /usr/bin/registry_DO_NOT_USE_GC && chmod u+x /usr/bin/registry_DO_NOT_USE_GC
 
 HEALTHCHECK CMD curl --fail -s http://localhost:5000 || curl -k --fail -s https://localhost:5443 || exit 1
