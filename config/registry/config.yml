@@ -14,23 +14,23 @@ storage:
   delete:
     enabled: true
 redis:
-  addr: redis:6379
+  addr: http://localhost:6379
   password:
   db: 1
 http:
   addr: :5000
-  secret: CHANGEMEs
+  secret: CHANGEME
   debug:
     addr: localhost:5001
 auth:
   htpasswd:
     realm: harbor-registry-basic-realm
     path: /etc/registry/passwd
-notifications:
-  endpoints:
-  - name: harbor
-    disabled: false
-    url: http://core:8081/service/notifications
-    timeout: 3000ms
-    threshold: 5
-    backoff: 1s
+# notifications:
+#   endpoints:
+#   - name: harbor
+#     disabled: false
+#     url: http://core:8081/service/notifications
+#     timeout: 3000ms
+#     threshold: 5
+#     backoff: 1s
