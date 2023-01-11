@@ -30,11 +30,11 @@ COPY --from=builder /build_dir/dist /usr/share/nginx/html
 COPY --from=builder /build_dir/app-swagger-ui/dist /usr/share/nginx/html
 COPY src/portal/docker-build/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 8080
+EXPOSE 8082
 VOLUME /var/cache/nginx /var/log/nginx /run
 
 STOPSIGNAL SIGQUIT
 
-HEALTHCHECK CMD curl --fail -s http://127.0.0.1:8080 || exit 1
+HEALTHCHECK CMD curl --fail -s http://127.0.0.1:8082 || exit 1
 USER nginx
 CMD ["nginx", "-g", "daemon off;"]
