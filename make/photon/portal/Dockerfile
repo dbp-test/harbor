@@ -9,6 +9,7 @@ ARG npm_registry=https://registry.npmjs.org
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python-yaml
 
+RUN rm -rf node_modules package-lock.json
 COPY src/portal/package.json /build_dir
 COPY src/portal/package-lock.json /build_dir
 COPY src/portal/scripts /build_dir
