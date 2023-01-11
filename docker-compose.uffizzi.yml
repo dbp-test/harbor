@@ -156,7 +156,7 @@
 
 
 
-version: '2'
+version: '3.3'
 
 # uffizzi integration
 x-uffizzi:
@@ -169,7 +169,7 @@ services:
     image: "${PORTAL_IMAGE}"
 
   registry:
-    image: goharbor/registry-photon:dev
+    image: "${REGISTRY_IMAGE}"
     restart: always
     deploy:
           resources:
@@ -181,8 +181,18 @@ services:
     #   - /etc/core/ca/ca.crt:/etc/registry/root.crt
     ports:
       - 5000:5000
-    command:
-      ["serve", "/etc/registry/config.yml"]
+    # command:
+    #   ["serve", "/etc/registry/config.yml"]
+  registryctl:
+    image: "${REGISTRY_CTL_IMAGE}"
+    environment:
+      - CORE_SECRET=CHANGEME
+      - JOBSERVICE_SECRET=CHANGEME
+      - REGISTRY_HTTP_SECRET=CHANGEME
+    volumes:
+      - registry_data:/storage
+      - ./config/registry/:/etc/registry/:ro
+      - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
   postgres:
     image: postgres:latest
     restart: always
@@ -208,3 +218,16 @@ services:
           resources:
             limits:
               memory: 1000M
+
+
+volumes:
+  registry_data:
+    driver: local
+  core_data:
+    driver: local
+  jobservice_data:
+    driver: local
+  postgresql_data:
+    driver: local
+  chartmuseum_data:
+    driver: local
