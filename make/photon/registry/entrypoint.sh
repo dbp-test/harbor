@@ -11,4 +11,4 @@ fi
 /home/harbor/install_cert.sh
 
 # exec /usr/bin/registry_DO_NOT_USE_GC serve /etc/registry/config.yml
-exec serve /home/harbor/config.yml
+exec /home/harbor/config.yml
