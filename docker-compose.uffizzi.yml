@@ -3,8 +3,8 @@ version: '3.3'
 # uffizzi integration
 x-uffizzi:
   ingress:
-    service: nginx
-    port: 8081
+    service: portal
+    port: 8080
 
 services:
 
@@ -113,13 +113,13 @@ services:
   #     # ALLOW_EMPTY_PASSWORD is recommended only for development.
   #     - ALLOW_EMPTY_PASSWORD=yes
 
-  nginx:
-    image: nginx
-    container_name: nginx
-    volumes:
-      - ./nginx-uffizzi:/etc/nginx
-    ports:
-      - '8081:8081'
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   volumes:
+  #     - ./nginx-uffizzi:/etc/nginx
+  #   ports:
+  #     - '8081:8081'
   #   depends_on:
   #     - postgresql
   #     - registry
