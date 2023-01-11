@@ -166,7 +166,7 @@ x-uffizzi:
 
 services:
   registry:
-    image: goharbor/registry-photon
+    image: goharbor/registry-photon:dev
     restart: always
     deploy:
           resources:
