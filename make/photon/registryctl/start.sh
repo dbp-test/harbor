@@ -11,4 +11,4 @@ fi
 /home/harbor/install_cert.sh
 
 # exec /home/harbor/harbor_registryctl -c /etc/registryctl/config.yml
-exec /home/harbor/config.yml
+exec serve /home/harbor/config.yml
