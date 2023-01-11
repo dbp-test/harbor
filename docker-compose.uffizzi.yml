@@ -81,7 +81,7 @@ services:
   #     # - ./config/core/private_key.pem:/etc/core/private_key.pem:ro
 
   portal:
-    image: "${PORTAL_IMAGE}"
+    image: docker.io/bitnami/harbor-portal:2
     container_name: harbor-portal
     deploy:
           resources:
