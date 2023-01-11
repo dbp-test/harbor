@@ -168,6 +168,10 @@ services:
   registry:
     image: goharbor/registry-photon:latest
     restart: always
+    deploy:
+          resources:
+            limits:
+              memory: 2000M
     # volumes:
     #   - /data/registry:/storage
     #   - ./common/config/registry/:/etc/registry/
@@ -192,3 +196,7 @@ services:
     #   - /data/redis:/var/lib/redis
     ports:
       - 6379:6379
+    deploy:
+          resources:
+            limits:
+              memory: 1000M
