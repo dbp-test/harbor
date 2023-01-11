@@ -191,10 +191,10 @@ services:
       - CORE_SECRET=CHANGEME
       - JOBSERVICE_SECRET=CHANGEME
       - REGISTRY_HTTP_SECRET=CHANGEME
-    volumes:
-      - registry_data:/storage
-      - ./config/registry/:/etc/registry/:ro
-      - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
+    # volumes:
+    #   - registry_data:/storage
+    #   - ./config/registry/:/etc/registry/:ro
+    #   - ./config/registryctl/config.yml:/etc/registryctl/config.yml:ro
   postgres:
     image: postgres:latest
     restart: always
