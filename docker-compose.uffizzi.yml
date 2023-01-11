@@ -109,13 +109,13 @@ services:
   #     # ALLOW_EMPTY_PASSWORD is recommended only for development.
   #     - ALLOW_EMPTY_PASSWORD=yes
 
-  # nginx:
-  #   image: nginx
-  #   container_name: nginx
-  #   volumes:
-  #     - ./nginx-uffizzi:/etc/nginx
-  #   ports:
-  #     - '8081:8081'
+  nginx:
+    image: nginx
+    container_name: nginx
+    volumes:
+      - ./nginx-uffizzi:/etc/nginx
+    ports:
+      - '8081:8081'
   #   depends_on:
   #     - postgresql
   #     - registry
