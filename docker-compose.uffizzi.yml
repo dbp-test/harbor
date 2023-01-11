@@ -83,6 +83,10 @@ services:
   portal:
     image: "${PORTAL_IMAGE}"
     container_name: harbor-portal
+    deploy:
+          resources:
+            limits:
+              memory: 1000M
     # depends_on:
     #   - core
 
