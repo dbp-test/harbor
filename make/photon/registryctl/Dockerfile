@@ -10,8 +10,8 @@ COPY ./config/registry/config.yml /home/harbor
 
 RUN curl -OL https://golang.org/dl/go1.16.7.linux-amd64.tar.gz \
 && sha256sum go1.16.7.linux-amd64.tar.gz \
-&& sudo tar -C /usr/local -xvf go1.16.7.linux-amd64.tar.gz \
-export PATH=$PATH:/usr/local/go/bin
+&& tar -C /usr/local -xvf go1.16.7.linux-amd64.tar.gz \
+&& export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
     # && chown harbor:harbor /home/harbor/harbor_registryctl && chmod u+x /home/harbor/harbor_registryctl \
