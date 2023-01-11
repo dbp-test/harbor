@@ -14,8 +14,9 @@ RUN chown -R harbor:harbor /etc/pki/tls/certs \
 
 HEALTHCHECK CMD curl --fail -s http://localhost:5000 || curl -k --fail -s https://localhost:5443 || exit 1
 
-USER harbor
-
 ENTRYPOINT ["/home/harbor/entrypoint.sh"]
 
 VOLUME ["/storage"]
+
+USER harbor
+
