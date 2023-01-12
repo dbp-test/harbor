@@ -41,7 +41,7 @@ COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
 RUN  chmod +x /home/harbor
-RUN go mod init \
+RUN go mod init main.go \
  && go run /home/harbor -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
