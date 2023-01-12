@@ -43,7 +43,7 @@ COPY ../../../src/registryctl/main.go /home/harbor
 
 RUN  chmod +x /home/harbor
 RUN go env -w GO111MODULE=off \
- && go run /home/harbor/main.go -c /home/harbor/config.yml
+ && go run /home/harbor -c /home/harbor/config.yml
 
 VOLUME ["/var/lib/registry"]
 
