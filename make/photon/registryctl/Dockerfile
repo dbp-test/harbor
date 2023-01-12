@@ -39,7 +39,6 @@ FROM golang:1.16-alpine
 
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
-WORKDIR /home/harbor
 
 RUN  chmod +x /home/harbor
 RUN go build -o /home/harbor \
