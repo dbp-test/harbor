@@ -40,17 +40,12 @@ RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/confi
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
-
-VOLUME ["/var/lib/registry"]
-
 # RUN  chmod +x /home/harbor
 # RUN go build -o /home/harbor \
 #  && go run /home/harbor -c /home/harbor/config.yml
 
-
-USER harbor
+VOLUME ["/var/lib/registry"]
 
 ENTRYPOINT ["/home/harbor/start.sh"]
 
-
-
+USER harbor
