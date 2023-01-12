@@ -35,9 +35,8 @@ FROM golang:1.16-alpine
 COPY ./config/registry/config.yml /home/harbor
 COPY ../../src/registryctl/main.go /home/harbor
 
-RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
-    && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
-
+RUN  sudo chmod u+x /home/harbor/config.yml \
+     && sudo chmod u+x /home/harbor/main.go
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
