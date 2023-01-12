@@ -5,7 +5,7 @@ FROM ${harbor_base_namespace}/harbor-registryctl-base:${harbor_base_image_versio
 COPY ./make/photon/common/install_cert.sh /home/harbor
 # COPY ./make/photon/registry/binary/registry /usr/bin/registry_DO_NOT_USE_GC
 COPY ./make/photon/registryctl/start.sh /home/harbor
-COPY ./config/registry/config.yml /home/harbor
+COPY ../../config/registry/config.yml /home/harbor
 COPY ../../src/registryctl/main.go /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
