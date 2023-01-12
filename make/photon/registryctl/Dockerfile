@@ -39,9 +39,14 @@ FROM golang:1.16-alpine
 
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
+WORKDIR /home/harbor
+
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
 
 RUN  chmod +x /home/harbor
-RUN go mod init main.go \
+RUN go build -o /home/harbor \
  && go run /home/harbor -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
