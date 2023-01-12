@@ -1,6 +1,6 @@
 ARG harbor_base_image_version
 ARG harbor_base_namespace
-FROM golang:1.16-alpine
+
 FROM ${harbor_base_namespace}/harbor-registryctl-base:${harbor_base_image_version}
 
 
@@ -35,6 +35,7 @@ COPY ../../../src/registryctl/main.go /home/harbor
 
 RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
      && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
+FROM golang:1.16-alpine
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
