@@ -42,6 +42,7 @@ RUN  chmod +x /home/harbor
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 RUN go env -w GO111MODULE=off
+RUN export GOPATH=/home/harbor
 RUN go get -u
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
