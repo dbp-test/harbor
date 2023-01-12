@@ -1,6 +1,7 @@
 ARG harbor_base_image_version
 ARG harbor_base_namespace
 FROM ${harbor_base_namespace}/harbor-registryctl-base:${harbor_base_image_version}
+FROM golang:1.16-alpine
 
 COPY ./make/photon/common/install_cert.sh /home/harbor
 # COPY ./make/photon/registry/binary/registry /usr/bin/registry_DO_NOT_USE_GC
@@ -30,13 +31,11 @@ HEALTHCHECK CMD curl --fail -s http://localhost:8081/api/health || curl -sk --fa
 
 VOLUME ["/var/lib/registry"]
 
-FROM golang:1.16-alpine
-
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
-RUN  chown /home/harbor/congfig.yml && chmod u+x /home/harbor/config.yml \
-     && chown /home/harbor/main.go && chmod u+x /home/harbor/main.go
+RUN  chown harbor:harbor /home/harbor/congfig.yml && chmod u+x /home/harbor/config.yml \
+     && harbor:harbor chown /home/harbor/main.go && chmod u+x /home/harbor/main.go
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
