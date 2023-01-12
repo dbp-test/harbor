@@ -9,7 +9,7 @@ COPY ./config/registry/config.yml /home/harbor
 COPY ../../src/registryctl/main.go /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
-RUN yum search wget && yum install && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin
+RUN yum search wget && yum install wget && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
     # && chown harbor:harbor /home/harbor/harbor_registryctl && chmod u+x /home/harbor/harbor_registryctl \
