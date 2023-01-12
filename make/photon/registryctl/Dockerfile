@@ -30,6 +30,6 @@ HEALTHCHECK CMD curl --fail -s http://localhost:8081/api/health || curl -sk --fa
 
 VOLUME ["/var/lib/registry"]
 
-ENTRYPOINT ["/home/harbor/start.sh"]
+# ENTRYPOINT ["/home/harbor/start.sh"]
 
 USER harbor
