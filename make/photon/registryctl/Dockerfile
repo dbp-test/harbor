@@ -37,13 +37,11 @@ RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/confi
      && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
 
 FROM golang:1.16-alpine
-
-COPY ../../../config/registry/config.yml /home/harbor
-COPY ../../../src/registryctl/main.go /home/harbor
-
-RUN  chmod +x /home/harbor
 RUN go env -w GO111MODULE=off
 WORKDIR /home/harbor
+RUN  chmod +x /home/harbor
+COPY ../../../config/registry/config.yml /home/harbor
+COPY ../../../src/registryctl/main.go /home/harbor
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 VOLUME ["/var/lib/registry"]
