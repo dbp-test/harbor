@@ -40,8 +40,7 @@ FROM golang:1.16-alpine
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
-RUN  chmod +x /home/harbor/config.yml \
-     && chmod +x /home/harbor/main.go
+RUN  chmod +x /home/harbor/
 
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
