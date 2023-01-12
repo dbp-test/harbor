@@ -191,19 +191,19 @@ services:
       - CORE_SECRET=CHANGEME
       - JOBSERVICE_SECRET=CHANGEME
       - REGISTRY_HTTP_SECRET=CHANGEME
-    entrypoint: /bin/sh
-    command:
-     - "-c"
-     - "
-        yum install sudo \
-        && sudo yum install wget -y \
-        && sudo yum update -y \
-        && sudo yum install wget -y \
-        && sudo wget https://go.dev/dl/go1.19.5.src.tar.gz \
-        && sudo rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.5.src.tar.gz \
-        && sudo export PATH=$PATH:/usr/local/go/bin \
-        && sudo go /home/harbor/main.go -c /home/harbor/config.yml
-        "
+    # entrypoint: /bin/sh
+    # command:
+    #  - "-c"
+    #  - "
+    #     yum install sudo \
+    #     && sudo yum install wget -y \
+    #     && sudo yum update -y \
+    #     && sudo yum install wget -y \
+    #     && sudo wget https://go.dev/dl/go1.19.5.src.tar.gz \
+    #     && sudo rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.5.src.tar.gz \
+    #     && sudo export PATH=$PATH:/usr/local/go/bin \
+    #     && sudo go /home/harbor/main.go -c /home/harbor/config.yml
+    #     "
     # volumes:
     #   - registry_data:/storage
     #   - ./config/registry/:/etc/registry/:ro
