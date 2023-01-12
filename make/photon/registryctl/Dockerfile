@@ -31,7 +31,7 @@ HEALTHCHECK CMD curl --fail -s http://localhost:8081/api/health || curl -sk --fa
 VOLUME ["/var/lib/registry"]
 
 FROM golang:1.16-alpine
-go /home/harbor/main.go -c /home/harbor/config.yml
+RUN go /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
 
