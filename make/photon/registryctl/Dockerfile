@@ -42,8 +42,6 @@ COPY ../../../src/registryctl/main.go /home/harbor
 WORKDIR /home/harbor
 
 COPY go.mod ./
-COPY go.sum ./
-RUN go mod download
 
 RUN  chmod +x /home/harbor
 RUN go build -o /home/harbor \
