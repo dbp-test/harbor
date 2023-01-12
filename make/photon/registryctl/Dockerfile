@@ -30,15 +30,16 @@ RUN chown -R harbor:harbor /etc/pki/tls/certs \
 
 # HEALTHCHECK CMD curl --fail -s http://localhost:8081/api/health || curl -sk --fail --key /etc/harbor/ssl/registryctl.key --cert /etc/harbor/ssl/registryctl.crt https://localhost:8443/api/health || exit 1
 
-VOLUME ["/var/lib/registry"]
-
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
-RUN  chown harbor:harbor /home/harbor/congfig.yml && chmod u+x /home/harbor/config.yml \
+RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
      && harbor:harbor chown /home/harbor/main.go && chmod u+x /home/harbor/main.go
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
+
+VOLUME ["/var/lib/registry"]
+
 
 USER harbor
