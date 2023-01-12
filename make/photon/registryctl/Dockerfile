@@ -5,8 +5,8 @@ FROM ${harbor_base_namespace}/harbor-registryctl-base:${harbor_base_image_versio
 COPY ./make/photon/common/install_cert.sh /home/harbor
 # COPY ./make/photon/registry/binary/registry /usr/bin/registry_DO_NOT_USE_GC
 COPY ./make/photon/registryctl/start.sh /home/harbor
-COPY ../../config/registry/config.yml /home/harbor
-COPY ../../src/registryctl/main.go /home/harbor
+# COPY ../../config/registry/config.yml /home/harbor
+# COPY ../../src/registryctl/main.go /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
 # RUN yum install wget -y \
@@ -22,8 +22,8 @@ RUN chown -R harbor:harbor /etc/pki/tls/certs \
     # && chown harbor:harbor /usr/bin/registry_DO_NOT_USE_GC && chmod u+x /usr/bin/registry_DO_NOT_USE_GC \
     && chown harbor:harbor /home/harbor/start.sh && chmod u+x /home/harbor/start.sh \
     && chown harbor:harbor /home/harbor/install_cert.sh && chmod u+x /home/harbor/install_cert.sh \
-    && chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
-    && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
+    # && chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
+    # && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
 
 
 HEALTHCHECK CMD curl --fail -s http://localhost:8081/api/health || curl -sk --fail --key /etc/harbor/ssl/registryctl.key --cert /etc/harbor/ssl/registryctl.crt https://localhost:8443/api/health || exit 1
@@ -35,8 +35,8 @@ FROM golang:1.16-alpine
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
-RUN  chmod u+x /home/harbor/config.yml \
-     && chmod u+x /home/harbor/main.go
+RUN  chown /home/harbor/congfig.yml && chmod u+x /home/harbor/config.yml \
+     && chown /home/harbor/main.go && chmod u+x /home/harbor/main.go
 RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
