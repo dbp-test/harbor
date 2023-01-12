@@ -12,7 +12,7 @@ COPY ../../src/registryctl/main.go /home/harbor
 RUN yum install wget -y \
 && yum update -y \
 && yum install wget -y \
-&& wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz3 \
+&& wget https://go.dev/dl/go1.19.5.src.tar.gz \
 && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz \
 && export PATH=$PATH:/usr/local/go/bin
 # && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin
