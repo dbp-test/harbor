@@ -40,11 +40,11 @@ FROM golang:1.16-alpine
 COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 
-RUN  chmod +x /home/harbor
-RUN go build -o /home/harbor \
- && go run /home/harbor -c /home/harbor/config.yml
+# RUN  chmod +x /home/harbor
+# RUN go build -o /home/harbor \
+#  && go run /home/harbor -c /home/harbor/config.yml
 
-# ENTRYPOINT ["/home/harbor/start.sh"]
+ENTRYPOINT ["/home/harbor/start.sh"]
 
 VOLUME ["/var/lib/registry"]
 
