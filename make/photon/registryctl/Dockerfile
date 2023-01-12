@@ -41,8 +41,6 @@ COPY ../../../config/registry/config.yml /home/harbor
 COPY ../../../src/registryctl/main.go /home/harbor
 WORKDIR /home/harbor
 
-COPY go.mod ./
-
 RUN  chmod +x /home/harbor
 RUN go build -o /home/harbor \
  && go run /home/harbor -c /home/harbor/config.yml
