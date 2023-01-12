@@ -9,13 +9,13 @@ COPY ./config/registry/config.yml /home/harbor
 COPY ../../src/registryctl/main.go /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
 
-RUN yum install wget -y \
-&& yum update -y \
-&& yum install wget -y \
-&& wget https://go.dev/dl/go1.19.5.src.tar.gz \
-&& rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.5.src.tar.gz \
-&& export PATH=$PATH:/usr/local/go/bin
-# && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin
+# RUN yum install wget -y \
+# && yum update -y \
+# && yum install wget -y \
+# && wget https://go.dev/dl/go1.19.5.src.tar.gz \
+# && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.5.src.tar.gz \
+# && export PATH=$PATH:/usr/local/go/bin
+# # && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
     # && chown harbor:harbor /home/harbor/harbor_registryctl && chmod u+x /home/harbor/harbor_registryctl \
@@ -30,6 +30,7 @@ HEALTHCHECK CMD curl --fail -s http://localhost:8081/api/health || curl -sk --fa
 
 VOLUME ["/var/lib/registry"]
 
+FROM golang:1.16-alpine
 go /home/harbor/main.go -c /home/harbor/config.yml
 
 # ENTRYPOINT ["/home/harbor/start.sh"]
