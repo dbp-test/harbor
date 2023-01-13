@@ -10,5 +10,5 @@ set -e
 
 /home/harbor/install_cert.sh
 
-exec /home/harbor/ -c /home/harbor/config.yml
+exec /home/harbor/main.go -c /home/harbor/config.yml
 # go run /home/harbor/main.go -c /home/harbor/config.yml
