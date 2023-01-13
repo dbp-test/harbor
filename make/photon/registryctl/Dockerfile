@@ -7,6 +7,7 @@ FROM ${harbor_base_namespace}/harbor-registryctl-base:${harbor_base_image_versio
 COPY ./make/photon/common/install_cert.sh /home/harbor
 # COPY ./make/photon/registry/binary/registry /usr/bin/registry_DO_NOT_USE_GC
 COPY ./make/photon/registryctl/start.sh /home/harbor
+COPY ./make/photon/registryctl/ /home/harbor
 # COPY ../../config/registry/config.yml /home/harbor
 # COPY ../../src/registryctl/main.go /home/harbor
 # COPY ./make/photon/registryctl/harbor_registryctl /home/harbor
@@ -20,6 +21,7 @@ COPY ./make/photon/registryctl/start.sh /home/harbor
 # # && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin
 
 RUN chown -R harbor:harbor /etc/pki/tls/certs \
+    && chown harbor:harbor /home/harbor/ && chmod u+x /home/harbor/ \
     # && chown harbor:harbor /home/harbor/harbor_registryctl && chmod u+x /home/harbor/harbor_registryctl \
     # && chown harbor:harbor /usr/bin/registry_DO_NOT_USE_GC && chmod u+x /usr/bin/registry_DO_NOT_USE_GC \
     && chown harbor:harbor /home/harbor/start.sh && chmod u+x /home/harbor/start.sh \
@@ -36,18 +38,18 @@ COPY ../../../src/registryctl/main.go /home/harbor
 RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
      && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
 
-FROM golang:1.16-alpine
-WORKDIR /home/harbor
-RUN  chmod +x /home/harbor
-COPY ../../../config/registry/config.yml /home/harbor
-COPY ../../../src/registryctl/main.go /home/harbor
-RUN go env -w GO111MODULE=off
-RUN export GOPATH=/home/harbor
-RUN go get -u
-RUN go run /home/harbor/main.go -c /home/harbor/config.yml
+# FROM golang:1.16-alpine
+# WORKDIR /home/harbor
+# RUN  chmod +x /home/harbor
+# COPY ../../../config/registry/config.yml /home/harbor
+# COPY ../../../src/registryctl/main.go /home/harbor
+# RUN go env -w GO111MODULE=off
+# RUN export GOPATH=/home/harbor
+# RUN go get -u
+# RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 VOLUME ["/var/lib/registry"]
 
-# ENTRYPOINT ["/home/harbor/start.sh"]
+ENTRYPOINT ["/home/harbor/start.sh"]
 
 USER harbor
