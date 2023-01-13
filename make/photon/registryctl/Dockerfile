@@ -38,18 +38,20 @@ COPY ../../../src/registryctl/main.go /home/harbor
 RUN  chown harbor:harbor /home/harbor/config.yml && chmod u+x /home/harbor/config.yml \
      && chown harbor:harbor /home/harbor/main.go && chmod u+x /home/harbor/main.go
 
-# FROM golang:1.16-alpine
-# WORKDIR /home/harbor
-# RUN  chmod +x /home/harbor
-# COPY ../../../config/registry/config.yml /home/harbor
-# COPY ../../../src/registryctl/main.go /home/harbor
-# RUN go env -w GO111MODULE=off
+FROM golang:1.16-alpine
+RUN mkdir /home/harbor
+WORKDIR /home/harbor
+RUN  chmod +x /home/harbor
+COPY ../../../config/registry/config.yml /home/harbor
+COPY ../../../src/registryctl/main.go /home/harbor
+RUN go build -o main .
 # RUN export GOPATH=/home/harbor
 # RUN go get -u
+CMD ["/home/harbor/main", "-c", "/home/harbor/config.yml"]
 # RUN go run /home/harbor/main.go -c /home/harbor/config.yml
 
 VOLUME ["/var/lib/registry"]
 
-ENTRYPOINT ["/home/harbor/start.sh"]
+# ENTRYPOINT ["/home/harbor/start.sh"]
 
 USER harbor
